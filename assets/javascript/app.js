@@ -20,7 +20,7 @@ console.log("We see each other!");
 
 //Load a question into the html <p> with class 'questions'
 
-
+  $('.questionSpot').html("print this");
 
 
 
