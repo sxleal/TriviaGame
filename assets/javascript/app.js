@@ -1,6 +1,7 @@
 
-	window.onload = function() {
-		$('#start').on('click',timer.runTimer);
+		window.onload = function() {
+			$('#start').on('click',startGame());
+		
 	}
 
 	var questionBank = [
@@ -20,34 +21,71 @@
 
 
 
-	var index = 0;			//tracks position in array
+	var index = 0;					//tracks position in object array
+	var userResponses = [];			//score counter
+	var correct = 0;
+	
+
 	
 
 //confirm connection between html and js files
 	console.log("We see each other!");
+	
 
 //Load a question into the html <p> with class 'questions'
 
- 
+ 	function loadQuestion() {
 
-  	$('.questionSpot').html(questionBank[index].question);
+	 	//Check that there is another question to answer, if not, quit game
+	 	if (index > questionBank.length-1) {
+	 		gameOver();
+	 		return;
+	 	}
 
+	 	//Load next question and its answers as tracked by var 'index'
+	  	$('.questionSpot').html(questionBank[index].question);
+	  	for (var i=0; i<questionBank[index].answerChoices.length; i++) {
+			var newDiv = $('<div>');
+			newDiv.html(questionBank[index].answerChoices[i]);
+			$('.answerSpot').append(newDiv);
+		}
 
+		//Set click listener to capture user's answer
+		$('.answerSpot').on('click',console.log("myanswer "+this));
+		timer.runTimer;
 
-//Load the answer choices into html with div class=answerSpot
-
-	for (var i=0; i<questionBank[index].answerChoices.length; i++) {
-		var newDiv = $('<div>');
-		newDiv.html(questionBank[index].answerChoices[i]);
-		$('.answerSpot').append(newDiv);
-	}
+  	}
 
 
 
 //Check if answer clicked is same as correct,  Check if this is the last question.  If true, empty
 //the answerSpot and alert that game is done
 
+	// function checkAnswer () {
 
+
+
+//Stop game and offer button choice to play again
+
+	function gameOver() {
+		$('.timer').empty();
+		timer.reset;
+		$('.questionSpot').empty();
+		$('.answerSpot').empty();
+		$('.answerSpot').html("Game Over<br>");
+		$('#start').show();
+	}
+
+//Start game is option to play again when start button clicked
+	function startGame() {
+		index = 0;
+		userResponses = null;
+		correct = 0;
+		loadQuestion();
+		// $('#start').hide();
+		// timer.runTimer;
+		
+	}
 
 //timer function starts with available seconds and counts down
 //creating an object to handle timer
@@ -72,10 +110,11 @@ var timer = {
 		//Use the variable to display in html
 		$('.timer').html(converted);
 
-		if (timer.time === 0) {
+		if (timer.time <= 0) {
 			timer.stop();
-			$('.timer').html("Time's Up!");
 			timer.reset();
+			index++;
+			$('.timer').html("Time's Up!");
 		}
 		
 	},
@@ -97,6 +136,9 @@ var timer = {
 	}
 
 };
+
+
+
 
 
 	

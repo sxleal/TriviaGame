@@ -77,9 +77,21 @@ body, html {
 	margin: 0 auto;
 }
 
+.countdown {
+	padding: 20px 0 0 0;
+	font-size: 18px;
+}
+
 .timer {
 	font-size: 48px;
 	font-weight: 700;
+}
+
+#start {
+	margin-top: 30px;
+	padding: 15px 32px;
+	text-align: center;
+	font-size: 16px;
 }
 
 
