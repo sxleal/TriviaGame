@@ -44,16 +44,16 @@
 
 	 	//Load next question and its answers as tracked by var 'index'
 	  	$('.questionSpot').html(questionBank[index].question);
+
 	  	for (var i=0; i<questionBank[index].answerChoices.length; i++) {
 			var newDiv = $('<div>');
-			newDiv.html(questionBank[index].answerChoices[i]);
+			newDiv.html(questionBank[index].answerChoices[index]);
 			$('.answerSpot').append(newDiv);
-		}
+			//Set click listener to capture user's answer
+			$('.answerSpot').on('click',checkAnswer(i));
 
-		//Set click listener to capture user's answer
-		$('.answerSpot').on('click',console.log("myanswer "+this));
-		timer.runTimer;
-
+			}
+		
   	}
 
 
@@ -61,7 +61,31 @@
 //Check if answer clicked is same as correct,  Check if this is the last question.  If true, empty
 //the answerSpot and alert that game is done
 
-	// function checkAnswer () {
+	function checkAnswer (i) {
+
+		index++;
+
+		return function () {
+			var givenAnswer = i;
+			correctAnswer = questionBank[index].correctAnswer
+
+			if(givenAnswer === correctAnswer) {
+				correct++;
+
+				$('.answerSpot').html("Correct!");
+			} else {
+				$('.answerSpot').empty();
+				$('.answerSpot').html("Ooops.  Incorrect!");
+			}
+
+			timer.stop;
+			timer.reset;
+			timer.start;
+			loadQuestion();
+
+		}
+
+	}
 
 
 
@@ -82,8 +106,9 @@
 		userResponses = null;
 		correct = 0;
 		loadQuestion();
-		// $('#start').hide();
-		// timer.runTimer;
+		$('.countDown').html(timer.runTimer);
+		$('#start').hide();
+		
 		
 	}
 
