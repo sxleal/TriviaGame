@@ -43,49 +43,56 @@
 	 	}
 
 	 	//Load next question and its answers as tracked by var 'index'
+	 	$('.questionSpot').empty();
 	  	$('.questionSpot').html(questionBank[index].question);
 
 	  	for (var i=0; i<questionBank[index].answerChoices.length; i++) {
 			var newDiv = $('<div>');
-			newDiv.html(questionBank[index].answerChoices[index]);
-			$('.answerSpot').append(newDiv);
-			//Set click listener to capture user's answer
-			$('.answerSpot').on('click',checkAnswer(i));
+			var eachAnswer = $('<ul>').text(questionBank[index].answerChoices[i]);
+			
 
+			newDiv.append(eachAnswer);
+			eachAnswer.addClass('answer');
+			eachAnswer.attr('data-value',questionBank[index].answerChoices[i]);
+			$('.answerSpot').append(newDiv);
 			}
 		
   	}
 
-
+  	$(".answerSpot").click(function() {
+  		var answer = $(document).on('click').val();
+  		console.log(answer);
+  	});
 
 //Check if answer clicked is same as correct,  Check if this is the last question.  If true, empty
 //the answerSpot and alert that game is done
 
-	function checkAnswer (i) {
+	// function checkAnswer (i)) {
 
-		index++;
+	// 	index++;
+		
 
-		return function () {
-			var givenAnswer = i;
-			correctAnswer = questionBank[index].correctAnswer
+	// 	return function () {
+	// 		var givenAnswer = i;
+	// 		correctAnswer = questionBank[index].correctAnswer
 
-			if(givenAnswer === correctAnswer) {
-				correct++;
+	// 		if(givenAnswer === correctAnswer) {
+	// 			correct++;
 
-				$('.answerSpot').html("Correct!");
-			} else {
-				$('.answerSpot').empty();
-				$('.answerSpot').html("Ooops.  Incorrect!");
-			}
+	// 			$('.answerSpot').html("Correct!");
+	// 		} else {
+	// 			$('.answerSpot').empty();
+	// 			$('.answerSpot').html("Ooops.  Incorrect!");
+	// 		}
 
-			timer.stop;
-			timer.reset;
-			timer.start;
-			loadQuestion();
+	// 		timer.stop;
+	// 		timer.reset;
+	// 		timer.start;
+	// 		loadQuestion();
 
-		}
+	// 	}
 
-	}
+	// }
 
 
 
